@@ -1,4 +1,6 @@
 using ConsultaAPICodeFirst.Context;
+using ConsultaAPICodeFirst.Interfaces;
+using ConsultaAPICodeFirst.Repositories;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -41,6 +43,12 @@ namespace ConsultaAPICodeFirst
                        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
             );
 
+            services.AddTransient<DataContext, DataContext>();
+            services.AddTransient<ITipoUsuarioRepository, TipoUsuarioRepository>();
+            services.AddTransient<IEspecialidadeRepository, EspecialidadeRepository>();
+            services.AddTransient<IMedicoRepository, MedicoRepository>();
+            services.AddTransient<IPacienteRepository, PacienteRepository>();
+            services.AddTransient<IConsultaRepository, ConsultaRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
