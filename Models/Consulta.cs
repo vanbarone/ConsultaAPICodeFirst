@@ -6,6 +6,7 @@ namespace ConsultaAPICodeFirst.Models
 {
     public class Consulta
     {
+        [Key]
         public int Id { get; set; }
 
         [Required]
