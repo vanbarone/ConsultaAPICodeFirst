@@ -26,7 +26,9 @@ namespace ConsultaAPICodeFirst.Repositories
 
         public ICollection<Paciente> FindAll()
         {
-            return ctx.Paciente.ToList();
+            return ctx.Paciente
+                        .Include(u => u.Usuario)
+                        .ToList();
         }
 
         public Paciente FindById(int id)

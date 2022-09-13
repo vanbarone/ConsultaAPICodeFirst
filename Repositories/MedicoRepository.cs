@@ -26,7 +26,10 @@ namespace ConsultaAPICodeFirst.Repositories
 
         public ICollection<Medico> FindAll()
         {
-            return ctx.Medico.ToList();
+            return ctx.Medico
+                        .Include(e => e.Especialidade)
+                        .Include(u => u.Usuario)
+                        .ToList();
         }
 
         public Medico FindById(int id)
