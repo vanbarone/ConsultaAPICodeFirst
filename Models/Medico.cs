@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ConsultaAPICodeFirst.Models
 {
-    public class Medico
+    public class Paciente
     {
         [Key]
         public int Id { get; set; }
