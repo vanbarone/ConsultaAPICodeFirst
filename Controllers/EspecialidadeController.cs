@@ -7,6 +7,9 @@ using System;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
+    /// <summary>
+    /// Especialidades médicas
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class EspecialidadeController : ControllerBase
@@ -18,6 +21,11 @@ namespace ConsultaAPICodeFirst.Controllers
             repo = _repository;
         }
 
+
+        /// <summary>
+        /// Lista todas as especialidades cadastradas
+        /// </summary>
+        /// <returns>Lista de objetos(Especialidade)</returns>
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -33,6 +41,12 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Mostra a especialidade cadastrada com esse Id
+        /// </summary>
+        /// <param name="id">Identificador da especialidade</param>
+        /// <returns>Objeto(Especialidade)</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -51,8 +65,14 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Insere uma especialidade
+        /// </summary>
+        /// <param name="entity">Objeto(Especialidade)</param>
+        /// <returns>Objeto(Especialidade)</returns>
         [HttpPost]
-        public IActionResult Inserir(Especialidade entity)
+        public IActionResult Inserir([FromForm] Especialidade entity)
         {
             try
             {
@@ -66,8 +86,15 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Altera os dados de uma especialidade passando o objeto (Especialidade)
+        /// </summary>
+        /// <param name="id">Identificador da especialidade</param>
+        /// <param name="entity">Objeto(Especialidade)</param>
+        /// <returns>NoContent</returns>
         [HttpPut("{id}")]
-        public IActionResult Alterar(int id, Especialidade entity)
+        public IActionResult Alterar(int id, [FromForm] Especialidade entity)
         {
             try
             {
@@ -92,6 +119,12 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Altera os dados de uma especialidade passando o patch
+        /// </summary>
+        /// <param name="id">Identificador da especialidade</param>
+        /// <param name="patch">Patch com os dados que devem ser alterados</param>
+        /// <returns>NoContent</returns>
         [HttpPatch("{id}")]
         public IActionResult AlterarPatch(int id, [FromBody] JsonPatchDocument patch)
         {
@@ -118,6 +151,11 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Exclui uma especialidade
+        /// </summary>
+        /// <param name="id">Identificador da especialidade</param>
+        /// <returns>NoContent</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {

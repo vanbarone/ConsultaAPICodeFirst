@@ -1,11 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace ConsultaAPICodeFirst.Models
 {
     public class Usuario
     {
         [Key]
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]     //não mostra esse campo no json na inserção e alteração
         public int Id { get; set; }
 
         [Required]
@@ -22,6 +24,7 @@ namespace ConsultaAPICodeFirst.Models
 
         [ForeignKey("TipoUsuario")]
         public int IdTipoUsuario { get; set; }
+        [JsonIgnore(Condition = JsonIgnoreCondition.Never)]    
         public TipoUsuario TipoUsuario { get; set; }
     }
 }

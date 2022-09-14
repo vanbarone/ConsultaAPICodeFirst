@@ -7,6 +7,9 @@ using System;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
+    /// <summary>
+    /// Pacientes
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class PacienteController : ControllerBase
@@ -18,6 +21,11 @@ namespace ConsultaAPICodeFirst.Controllers
             repo = _repository;
         }
 
+
+        /// <summary>
+        /// Lista todos os pacientes cadastrados
+        /// </summary>
+        /// <returns>Lista de objetos(Paciente)</returns>
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -33,6 +41,12 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Mostra o paciente cadastrado com esse Id
+        /// </summary>
+        /// <param name="id">Identificador do paciente</param>
+        /// <returns>Objeto(Paciente)</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -51,6 +65,12 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Insere um paciente
+        /// </summary>
+        /// <param name="entity">Objeto(Paciente)</param>
+        /// <returns>Objeto(Paciente)</returns>
         [HttpPost]
         public IActionResult Inserir(Paciente entity)
         {
@@ -66,6 +86,13 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Altera os dados de um paciente passando o objeto (Paciente)
+        /// </summary>
+        /// <param name="id">Identificador do paciente</param>
+        /// <param name="entity">Objeto(Paciente)</param>
+        /// <returns>NoContent</returns>
         [HttpPut("{id}")]
         public IActionResult Alterar(int id, Paciente entity)
         {
@@ -92,6 +119,12 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Altera os dados de um paciente passando o patch
+        /// </summary>
+        /// <param name="id">Identificador do paciente</param>
+        /// <param name="patch">Patch com os dados que devem ser alterados</param>
+        /// <returns>NoContent</returns>
         [HttpPatch("{id}")]
         public IActionResult AlterarPatch(int id, [FromBody] JsonPatchDocument patch)
         {
@@ -118,6 +151,11 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Exclui um paciente
+        /// </summary>
+        /// <param name="id">Identificador do paciente</param>
+        /// <returns>NoContent</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {

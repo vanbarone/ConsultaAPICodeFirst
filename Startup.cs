@@ -13,7 +13,9 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace ConsultaAPICodeFirst
@@ -36,6 +38,9 @@ namespace ConsultaAPICodeFirst
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ConsultaAPICodeFirst", Version = "v1" });
+
+                var xmlArquivo = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlArquivo));
             });
 
             services.AddDbContext<DataContext>(options =>

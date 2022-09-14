@@ -7,6 +7,9 @@ using System;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
+    /// <summary>
+    /// Tipos de Usuário
+    /// </summary>
     [Route("api/[controller]")]
     [ApiController]
     public class TipoUsuarioController : ControllerBase
@@ -19,6 +22,11 @@ namespace ConsultaAPICodeFirst.Controllers
             repo = _repository;
         }
 
+
+        /// <summary>
+        /// Lista todos os Tipos de Usuários cadastrados
+        /// </summary>
+        /// <returns>Lista de objetos(TipoUsuario)</returns>
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -34,6 +42,12 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Mostra o tipo de usuário cadastrado com esse Id
+        /// </summary>
+        /// <param name="id">Identificador do tipo de usuário</param>
+        /// <returns>Objeto(TipoUsuario)</returns>
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -52,8 +66,14 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Insere um tipo de usuário
+        /// </summary>
+        /// <param name="entity">Objeto(TipoUsuario)</param>
+        /// <returns>Objeto(TipoUsuario)</returns>
         [HttpPost]
-        public IActionResult Inserir(TipoUsuario entity)
+        public IActionResult Inserir([FromForm] TipoUsuario entity)
         {
             try
             {
@@ -67,8 +87,15 @@ namespace ConsultaAPICodeFirst.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Altera os dados de um Tipo de Usuário passando o objeto (TipoUsuario)
+        /// </summary>
+        /// <param name="id">Identificador do TipoUsuario</param>
+        /// <param name="entity">Objeto(TipoUsuario)</param>
+        /// <returns>NoContent</returns>
         [HttpPut("{id}")]
-        public IActionResult Alterar(int id, TipoUsuario entity)
+        public IActionResult Alterar(int id, [FromForm] TipoUsuario entity)
         {
             try
             {
@@ -93,6 +120,12 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Altera os dados de um Tipo de Usuário passando o patch
+        /// </summary>
+        /// <param name="id">Identificador do TipoUsuario</param>
+        /// <param name="patch">Patch com os dados que devem ser alterados</param>
+        /// <returns>NoContent</returns>
         [HttpPatch("{id}")]
         public IActionResult AlterarPatch(int id, [FromBody] JsonPatchDocument patch)
         {
@@ -119,6 +152,11 @@ namespace ConsultaAPICodeFirst.Controllers
         }
 
 
+        /// <summary>
+        /// Exclui um Tipo de Usuário
+        /// </summary>
+        /// <param name="id">Identificador do TipoUsuario</param>
+        /// <returns>NoContent</returns>
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -140,6 +178,5 @@ namespace ConsultaAPICodeFirst.Controllers
                 return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message });
             }
         }
-
     }
 }
