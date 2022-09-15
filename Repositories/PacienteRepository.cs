@@ -23,6 +23,10 @@ namespace ConsultaAPICodeFirst.Repositories
             ctx.Paciente.Remove(entity);
 
             ctx.SaveChanges();
+
+            //Apaga tb o usuario
+            UsuarioRepository repo = new UsuarioRepository(ctx);
+            repo.Delete(entity.Usuario);
         }
 
         public ICollection<Paciente> FindAll()
