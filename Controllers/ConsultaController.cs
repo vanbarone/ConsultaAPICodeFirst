@@ -95,7 +95,7 @@ namespace ConsultaAPICodeFirst.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message, Inner = ex.InnerException?.Message, typeEx = ex.GetType(), typeExInner = ex.InnerException?.GetType() });
+                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message, Inner = ex.InnerException?.Message });
             }
         }
 
@@ -127,7 +127,7 @@ namespace ConsultaAPICodeFirst.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message });
+                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message, Inner = ex.InnerException?.Message });
             }
         }
 
@@ -159,7 +159,7 @@ namespace ConsultaAPICodeFirst.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message });
+                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message, Inner = ex.InnerException?.Message });
             }
         }
 
@@ -187,7 +187,7 @@ namespace ConsultaAPICodeFirst.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message });
+                return StatusCode(500, new { Error = "Falha na transação", Message = ex.Message, Inner = ex.InnerException?.Message });
             }
         }
     }
