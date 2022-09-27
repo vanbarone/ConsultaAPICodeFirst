@@ -19,7 +19,6 @@ namespace ConsultaAPICodeFirst.Models
         public string Email { get; set; }
 
         [Required]
-        [StringLength(10)]
         public string Senha { get; set; }
 
         [ForeignKey("TipoUsuario")]

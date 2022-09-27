@@ -5,30 +5,29 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Data;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
     /// <summary>
-    /// Médicos
+    /// Usuários
     /// </summary>
     [Route("api/[controller]")]
-    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR, MEDICO")]
     [ApiController]
-    public class MedicoController : ControllerBase
+    public class UsuarioController : ControllerBase
     {
-        IMedicoRepository repo;
+        IUsuarioRepository repo;
 
-        public MedicoController(IMedicoRepository _repository)
+        public UsuarioController(IUsuarioRepository _repository)
         {
             repo = _repository;
         }
 
 
         /// <summary>
-        /// Lista todos os médicos cadastrados
+        /// Lista todos os usuários cadastrados
         /// </summary>
-        /// <returns>Lista de objetos(Medico)</returns>
+        /// <returns>Lista de objetos(Usuario)</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -46,10 +45,11 @@ namespace ConsultaAPICodeFirst.Controllers
 
 
         /// <summary>
-        /// Mostra o médico cadastrado com esse Id
+        /// Mostra o usuário cadastrado com esse Id
         /// </summary>
-        /// <param name="id">Identificador do médico</param>
-        /// <returns>Objeto(Medico)</returns>
+        /// <param name="id">Identificador do usuário</param>
+        /// <returns>Objeto(Usuario)</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {
@@ -58,7 +58,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 var obj = repo.FindById(id);
 
                 if (obj == null)
-                    return NotFound(new { Message = "Médico não cadastrado" });
+                    return NotFound(new { Message = "Usuário não cadastrado" });
 
                 return Ok(obj);
             }
@@ -70,12 +70,13 @@ namespace ConsultaAPICodeFirst.Controllers
 
 
         /// <summary>
-        /// Insere um médico
+        /// Insere um usuário
         /// </summary>
-        /// <param name="entity">Objeto(Medico)</param>
-        /// <returns>Objeto(Medico)</returns>
+        /// <param name="entity">Objeto(Usuario)</param>
+        /// <returns>Objeto(Usuario)</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPost]
-        public IActionResult Inserir(Medico entity)
+        public IActionResult Inserir(Usuario entity)
         {
             try
             {
@@ -91,13 +92,14 @@ namespace ConsultaAPICodeFirst.Controllers
 
 
         /// <summary>
-        /// Altera os dados de um médico passando o objeto (Medico)
+        /// Altera os dados de um usuario passando o objeto (Usuario)
         /// </summary>
-        /// <param name="id">Identificador do médico</param>
-        /// <param name="entity">Objeto(Medico)</param>
+        /// <param name="id">Identificador do usuário</param>
+        /// <param name="entity">Objeto(Usuario)</param>
         /// <returns>NoContent</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPut("{id}")]
-        public IActionResult Alterar(int id, Medico entity)
+        public IActionResult Alterar(int id, Usuario entity)
         {
             try
             {
@@ -109,7 +111,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 var obj = repo.FindById(id);
 
                 if (obj == null)
-                    return NotFound(new { Message = "Médico não cadastrado" });
+                    return NotFound(new { Message = "Usuário não cadastrado" });
 
                 repo.Update(entity);
 
@@ -123,11 +125,12 @@ namespace ConsultaAPICodeFirst.Controllers
 
 
         /// <summary>
-        /// Altera os dados de um médico passando o patch
+        /// Altera os dados de um usuário passando o patch
         /// </summary>
-        /// <param name="id">Identificador do médico</param>
+        /// <param name="id">Identificador do usuário</param>
         /// <param name="patch">Patch com os dados que devem ser alterados</param>
         /// <returns>NoContent</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpPatch("{id}")]
         public IActionResult AlterarPatch(int id, [FromBody] JsonPatchDocument patch)
         {
@@ -140,7 +143,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 var obj = repo.FindById(id);
 
                 if (obj == null)
-                    return NotFound(new { Message = "Médico não cadastrado" });
+                    return NotFound(new { Message = "Usuário não cadastrado" });
 
                 //Efetua alteração parcial
                 repo.UpdatePartial(patch, obj);
@@ -155,10 +158,11 @@ namespace ConsultaAPICodeFirst.Controllers
 
 
         /// <summary>
-        /// Exclui um médico
+        /// Exclui um usuário
         /// </summary>
-        /// <param name="id">Identificador do médico</param>
+        /// <param name="id">Identificador do usuário</param>
         /// <returns>NoContent</returns>
+        [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
         [HttpDelete("{id}")]
         public IActionResult Excluir(int id)
         {
@@ -168,7 +172,7 @@ namespace ConsultaAPICodeFirst.Controllers
                 var obj = repo.FindById(id);
 
                 if (obj == null)
-                    return NotFound(new { Message = "Médico não cadastrado" });
+                    return NotFound(new { Message = "Usuário não cadastrado" });
 
                 //Efetua alteração
                 repo.Delete(obj);

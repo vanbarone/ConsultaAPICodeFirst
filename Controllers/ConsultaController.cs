@@ -1,10 +1,12 @@
 ﻿using ConsultaAPICodeFirst.Interfaces;
 using ConsultaAPICodeFirst.Models;
 using ConsultaAPICodeFirst.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Data;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
@@ -12,6 +14,7 @@ namespace ConsultaAPICodeFirst.Controllers
     /// Consultas teste
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
     [ApiController]
     public class ConsultaController : ControllerBase
     {
@@ -27,6 +30,7 @@ namespace ConsultaAPICodeFirst.Controllers
         /// Lista todas as consultas cadastradas
         /// </summary>
         /// <returns>Lista de objetos(Consulta)</returns>
+        [Authorize(Roles = "ADMIN")]
         [HttpGet]
         public IActionResult BuscarTodos()
         {
@@ -48,6 +52,7 @@ namespace ConsultaAPICodeFirst.Controllers
         /// </summary>
         /// <param name="id">Identificador da consulta</param>
         /// <returns>Objeto(Consulta)</returns>
+        [Authorize(Roles = "ADMIN")]
         [HttpGet("{id}")]
         public IActionResult BuscarPorId(int id)
         {

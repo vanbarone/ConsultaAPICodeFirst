@@ -1,9 +1,11 @@
 ﻿using ConsultaAPICodeFirst.Interfaces;
 using ConsultaAPICodeFirst.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Data;
 
 namespace ConsultaAPICodeFirst.Controllers
 {
@@ -11,6 +13,7 @@ namespace ConsultaAPICodeFirst.Controllers
     /// Pacientes
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR, PACIENTE")]
     [ApiController]
     public class PacienteController : ControllerBase
     {
