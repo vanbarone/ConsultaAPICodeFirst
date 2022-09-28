@@ -61,14 +61,11 @@ namespace ConsultaAPICodeFirst.Repositories
                 throw new ConstraintException("Especialidade não cadastrada");
             }
 
-            //Verifica se o tipo de usuário existe
+            //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            if (repoTipo.FindById(entity.Usuario.IdTipoUsuario) == null)
-            {
-                throw new ConstraintException("Tipo de Usuário não cadastrado");
-            }
-
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
+            
 
             //Salva no BD
             ctx.Medico.Add(entity);
@@ -90,13 +87,10 @@ namespace ConsultaAPICodeFirst.Repositories
                 throw new ConstraintException("Especialidade não cadastrada");
             }
 
-            //Verifica se o tipo de usuário existe
+            //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            if (repoTipo.FindById(entity.Usuario.IdTipoUsuario) == null)
-            {
-                throw new ConstraintException("Tipo de Usuário não cadastrado");
-            }
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
 
 
             //Salva no BD
@@ -108,6 +102,11 @@ namespace ConsultaAPICodeFirst.Repositories
         public void UpdatePartial(JsonPatchDocument patch, Medico entity)
         {
             patch.ApplyTo(entity);
+
+            //Seta o tipo de usuário como 'médico'
+            ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
+
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Médico").Id;
 
             ctx.Entry(entity).State = EntityState.Modified;
 

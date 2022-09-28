@@ -35,6 +35,11 @@ namespace ConsultaAPICodeFirst.Repositories
             return ctx.TipoUsuario.Find(id);
         }
 
+        public TipoUsuario FindByTipo(string _tipo)
+        {
+            return ctx.TipoUsuario.Where(t => t.Tipo == _tipo).FirstOrDefault();
+        }
+
         public TipoUsuario Insert(TipoUsuario entity)
         {
             ctx.TipoUsuario.Add(entity);

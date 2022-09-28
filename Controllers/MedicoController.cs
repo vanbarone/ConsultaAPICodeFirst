@@ -13,7 +13,7 @@ namespace ConsultaAPICodeFirst.Controllers
     /// Médicos
     /// </summary>
     [Route("api/[controller]")]
-    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR, MEDICO")]
+    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR, MÉDICO")]
     [ApiController]
     public class MedicoController : ControllerBase
     {

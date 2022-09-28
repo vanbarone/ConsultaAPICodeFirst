@@ -33,7 +33,7 @@ namespace ConsultaAPICodeFirst.Repositories
         {
             //include e theninclude são utilizados para carregar os respectivos objetos
             return ctx.Paciente
-                        .Include(u => u.Usuario)
+                        .Include(u => u.Usuario).ThenInclude(t => t.TipoUsuario)
                         .Include(c => c.Consultas).ThenInclude(m => m.Medico).ThenInclude(u => u.Usuario)
                         .ToList();
         }
@@ -42,7 +42,7 @@ namespace ConsultaAPICodeFirst.Repositories
         {
             //include e theninclude são utilizados para carregar os respectivos objetos
             var obj = ctx.Paciente
-                            .Include(u => u.Usuario)
+                            .Include(u => u.Usuario).ThenInclude(t => t.TipoUsuario)
                             .Include(c => c.Consultas).ThenInclude(m => m.Medico).ThenInclude(u => u.Usuario)
                             .FirstOrDefault(p => p.Id == id);
 
@@ -51,15 +51,12 @@ namespace ConsultaAPICodeFirst.Repositories
 
         public Paciente Insert(Paciente entity)
         {
-            //Verifica se o tipo de usuário existe
+            //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            if (repoTipo.FindById(entity.Usuario.IdTipoUsuario) == null)
-            {
-                throw new ConstraintException("Tipo de Usuário não cadastrado");
-            }
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Paciente").Id;
 
-
+            
             //Salva no BD
             ctx.Paciente.Add(entity);
 
@@ -72,13 +69,10 @@ namespace ConsultaAPICodeFirst.Repositories
 
         public void Update(Paciente entity)
         {
-            //Verifica se o tipo de usuário existe
+            //Seta o tipo de usuário como 'médico'
             ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
 
-            if (repoTipo.FindById(entity.Usuario.IdTipoUsuario) == null)
-            {
-                throw new ConstraintException("Tipo de Usuário não cadastrado");
-            }
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Paciente").Id;
 
 
             //Salva no BD
@@ -90,6 +84,11 @@ namespace ConsultaAPICodeFirst.Repositories
         public void UpdatePartial(JsonPatchDocument patch, Paciente entity)
         {
             patch.ApplyTo(entity);
+
+            //Seta o tipo de usuário como 'médico'
+            ITipoUsuarioRepository repoTipo = new TipoUsuarioRepository(ctx);
+
+            entity.Usuario.IdTipoUsuario = repoTipo.FindByTipo("Paciente").Id;
 
             ctx.Entry(entity).State = EntityState.Modified;
 

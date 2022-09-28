@@ -11,6 +11,8 @@ namespace ConsultaAPICodeFirst.Interfaces
 
         public TipoUsuario FindById(int id);
 
+        public TipoUsuario FindByTipo(string tipo);
+
         public TipoUsuario Insert(TipoUsuario entity);
 
         public void Update(TipoUsuario entity);

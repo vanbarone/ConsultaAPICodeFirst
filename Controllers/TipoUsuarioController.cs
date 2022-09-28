@@ -13,6 +13,7 @@ namespace ConsultaAPICodeFirst.Controllers
     /// Tipos de Usuário
     /// </summary>
     [Route("api/[controller]")]
+    [Authorize(Roles = "ADMINISTRADOR, DESENVOLVEDOR")]
     [ApiController]
     public class TipoUsuarioController : ControllerBase
     {
